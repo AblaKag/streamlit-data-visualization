@@ -96,6 +96,14 @@ elif page == "Visualisations":
 
     st.header('3. Visualisations')
 
+    # Sélecteur de langue
+    langue_selectionnee = st.selectbox('Sélectionner une langue', df['Langue'].unique(), key="selectbox_langue6")
+
+    # Filtrer les données en fonction de la langue choisie
+    df_filtré3 = df[df['Langue'] == langue_selectionnee]
+    st.write(df_filtré)
+
+
     # Slider pour filtrer les données selon le nombre de prêts total
     nombre_pret_min, nombre_pret_max = st.slider(
     'Sélectionner une plage de nombre de prêts',
