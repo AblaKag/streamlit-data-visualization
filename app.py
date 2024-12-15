@@ -167,8 +167,24 @@ elif page == "Visualisations":
                          y="Nombre de localisations", 
                          title=f"Relation entre Nombre de prêt total et Nombre de localisations pour {langue_selectionnee_scatter}",
                          labels={'Nombre de prêt total': 'Nombre de prêt total', 'Nombre de localisations': 'Nombre de localisations'})
-
+    
     # Afficher le graphique
     st.plotly_chart(fig_scatter)
+
+    ### Graph interactif 5
+    # Sélectionner la langue via un filtre interactif
+    langue_selectionnee_anciennete = st.selectbox("Choisir une langue", df["Langue"].unique(), key="selectbox_langue1")
+
+    # Filtrer les données selon la langue choisie
+    df_filtré_anciennete = df[df["Langue"] == langue_selectionnee_anciennete]
+
+    # Créer un histogramme pour l'ancienneté de publication
+    fig_anciennete = px.histogram(df_filtré_anciennete, 
+                               x='Ancienneté de publication', 
+                               title=f"Ancienneté de publication pour {langue_selectionnee_anciennete}",
+                               labels={'Ancienneté de publication': 'Ancienneté de publication'})
+
+    # Afficher le graphique
+    st.plotly_chart(fig_anciennete)
 
 
