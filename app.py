@@ -162,19 +162,18 @@ elif page == "Visualisations":
     st.plotly_chart(fig_document)
 
     ### Graph interactif 4
-    # Sélectionner l'autheur via un filtre interactif
-    autheur_selectionne = st.selectbox("Choisir un autheur", df["Auteur Nom"].unique())
+    # Sélectionner la langue via un filtre interactif
+    langue_selectionnee = st.selectbox("Choisir une langue", df["Langue"].unique())
 
     # Filtrer les données selon la langue choisie
-    df_filtré_localisation = df[df["Auteur Nom"] == autheur_selectionne]
+    df_filtré_localisation = df[df["Langue"] == langue_selectionnee]
 
     # Créer un histogramme pour le nombre de localisations
     fig_localisations = px.histogram(df_filtré_localisation, 
                                   x='Nombre de localisations', 
-                                  title=f"Nombre de localisations pour {autheur_selectionne}",
+                                  title=f"Nombre de localisations pour {langue_selectionnee}",
                                   labels={'Nombre de localisations': 'Nombre de localisations'})
 
     # Afficher le graphique
     st.plotly_chart(fig_localisations)
-
 
