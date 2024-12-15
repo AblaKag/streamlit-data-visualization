@@ -103,5 +103,14 @@ elif page == "Visualisations":
     df_filtré = df[df['Langue'].isin(langues_selectionnees)]
     st.write(df_filtré)
 
+    # Slider pour filtrer les données selon le nombre de prêts total
+    nombre_pret_min, nombre_pret_max = st.slider(
+    'Sélectionner une plage de nombre de prêts',
+    min_value=int(df['Nombre de prêt total'].min()),
+    max_value=int(df['Nombre de prêt total'].max()),
+    value=(int(df['Nombre de prêt total'].min()), int(df['Nombre de prêt total'].max())))
 
-    
+    # Filtrer les données selon la plage sélectionnée
+    df_filtré = df[(df['Nombre de prêt total'] >= nombre_pret_min) & (df['Nombre de prêt total'] <= nombre_pret_max)]
+    st.write(df_filtré)
+
