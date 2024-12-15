@@ -97,16 +97,8 @@ elif page == "Visualisations":
     st.header('3. Visualisations')
 
      # 1. Histogram for numerical variables using Matplotlib
-    st.subheader('Histogramme des variables numériques')
-    numerical_columns = df.select_dtypes(include=['float64', 'int64']).columns
-    for col in numerical_columns:
-        st.write(f"**{col}** Histogramme:")
-        fig, ax = plt.subplots()
-        ax.hist(df[col].dropna(), bins=30, color='skyblue', edgecolor='black')
-        ax.set_title(f'Histogramme de {col}')
-        ax.set_xlabel(col)
-        ax.set_ylabel('Fréquence')
-        st.pyplot(fig)
+    plt.figure(figsize=(12,8))
+    sns.scatterplot(x='Nombre de prêt total',y="Nombre d'exemplaires",data=df)
 
     # 2. Bar chart for categorical variables using Matplotlib
     st.subheader('Diagrammes en barres pour les variables catégorielles')
