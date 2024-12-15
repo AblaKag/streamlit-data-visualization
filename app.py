@@ -1,6 +1,10 @@
 import streamlit as st
 import pandas as pd
 import gzip
+import matplotlib.pyplot as plt
+import seaborn as sns
+from wordcloud import WordCloud
+import plotly.express as px
 
 # Function to load a gzipped CSV file
 def load_data():
@@ -18,6 +22,7 @@ st.title('Data Analysis App')
 # Sidebar for navigation
 st.sidebar.title("Navigation")
 page = st.sidebar.radio("Choose a page", ("Description du jeu de données", "Statistiques descriptives", "Visualisations", "Wordcloud"))
+
 
 if page == "Description du jeu de données":
     # Page 1: Description du jeu de données
@@ -83,3 +88,51 @@ elif page == "Statistiques descriptives":
     # Show missing values
     st.subheader('Valeurs manquantes')
     st.write(df.isnull().sum())
+
+elif page == "Visualisations":
+    # Page 3: Visualisations
+
+    st.header('3. Visualisations')
+
+    # 1. Histogram for numerical variables
+    st.subheader('Histogramme des variables numériques')
+    numerical_columns = df.select_dtypes(include=['float64', 'int64']).columns
+    for col in numerical_columns:
+        st.write(f"**{col}** Histogramme:")
+        fig, ax = plt.subplots()
+        ax.hist(df[col].dropna(), bins=30, color='skyblue', edgecolor='black')
+        ax.set_title(f'Histogramme de {col}')
+        ax.set_xlabel(col)
+        ax.set_ylabel('Fréquence')
+        st.pyplot(fig)
+
+    # 2. Bar chart for categorical variables
+    st.subheader('Diagrammes en barres pour les variables catégorielles')
+    categorical_columns = df.select_dtypes(include=['object']).columns
+    for col in categorical_columns:
+        st.write(f"**{col}** Diagramme en barres:")
+        fig = plt.figure(figsize=(8, 4))
+        df[col].value_counts().plot(kind='bar', color='lightcoral')
+        plt.title(f'Diagramme en barres de {col}')
+        plt.xlabel(col)
+        plt.ylabel('Fréquence')
+        st.pyplot(fig)
+
+    # 3. Correlation Heatmap for numerical variables
+    st.subheader('Carte de chaleur des corrélations')
+    correlation_matrix = df[numerical_columns].corr()
+    fig, ax = plt.subplots(figsize=(10, 8))
+    sns.heatmap(correlation_matrix, annot=True, cmap='coolwarm', ax=ax, cbar=True)
+    ax.set_title('Carte de chaleur des corrélations')
+    st.pyplot(fig)
+
+    # 4. Wordcloud for book titles or authors
+    st.subheader('Nuage de mots des titres de livres ou auteurs')
+    text = ' '.join(df['Titre'].dropna())  # Using 'Titre' (Title) for Wordcloud
+    wordcloud = WordCloud(width=800, height=400, background_color='white').generate(text)
+    st.image(wordcloud.to_array(), use_column_width=True)
+
+    # 5. Interactive plot with Plotly (optional)
+    st.subheader('Graphique interactif des prêts total par année')
+    fig = px.bar(df, x="Date", y="Nombre de prêt total", title="Prêts totaux par année", labels={"Date": "Année", "Nombre de prêt total": "Total des prêts"})
+    st.plotly_chart(fig)
