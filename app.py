@@ -97,10 +97,10 @@ elif page == "Visualisations":
     st.header('3. Visualisations')
 
      # Sélecteur de langue
-     langue_selectionnee = st.selectbox('Sélectionner une langue', df['Langue'].unique())
+    langue_selectionnee = st.selectbox('Sélectionner une langue', df['Langue'].unique())
 
      # Filtrer les données en fonction de la langue choisie
-     df_filtré = df[df['Langue'] == langue_selectionnee]
-     st.write(df_filtré)
+    df_filtré = df[df['Langue'] == langue_selectionnee]
+    st.write(df_filtré)
 
     
