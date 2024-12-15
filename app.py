@@ -99,5 +99,6 @@ elif page == "Visualisations":
      # 1. Histogram for numerical variables using Matplotlib
     plt.figure(figsize=(12,8))
     sns.scatterplot(x='Nombre de prêt total',y="Nombre d'exemplaires",data=df)
+    st.pyplot()
 
     
