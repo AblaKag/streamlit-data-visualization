@@ -145,23 +145,19 @@ elif page == "Visualisations":
     # Afficher le graphique
     st.plotly_chart(fig_exemplaires)
 
-    ### Graph interactif 1
-    # Slider pour filtrer le nombre d'exemplaires
-    nombre_exemplaires_min, nombre_exemplaires_max = st.slider(
-    'Sélectionner une plage de nombre d\'exemplaires',
-    min_value=int(df['Nombre d\'exemplaires'].min()),
-    max_value=int(df['Nombre d\'exemplaires'].max()),
-    value=(int(df['Nombre d\'exemplaires'].min()), int(df['Nombre d\'exemplaires'].max())))
+    ### Graph interactif 3
+    # Filtrer les données selon le type de document
+    type_document_selectionne = st.selectbox("Choisir un type de document", df["Type de document"].unique())
 
-    # Filtrer les données selon la plage sélectionnée
-    df_filtré_exemplaires = df[(df['Nombre d\'exemplaires'] >= nombre_exemplaires_min) & 
-                            (df['Nombre d\'exemplaires'] <= nombre_exemplaires_max)]
+    # Filtrer les données
+    df_filtré_document = df[df["Type de document"] == type_document_selectionne]
 
-    # Créer un graphique de type scatter pour voir la relation
-    fig_exemplaires = px.scatter(df_filtré_exemplaires, 
+    # Créer un histogramme pour les prêts totaux par type de document
+    fig_document = px.histogram(df_filtré_document, 
                              x='Nombre de prêt total', 
-                             y='Nombre d\'exemplaires',
-                             title="Relation entre Nombre de prêts total et Nombre d'exemplaires")
+                             title=f"Histogramme des prêts totaux pour le type de document {type_document_selectionne}",
+                             labels={'Nombre de prêt total': 'Nombre de prêts total'})
 
     # Afficher le graphique
-    st.plotly_chart(fig_exemplaires)
+    st.plotly_chart(fig_document)
+
