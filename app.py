@@ -96,9 +96,11 @@ elif page == "Visualisations":
 
     st.header('3. Visualisations')
 
-     # 1. Histogram for numerical variables using Matplotlib
-    plt.figure(figsize=(12,8))
-    sns.scatterplot(x='Nombre de prêt total',y="Nombre d'exemplaires",data=df)
-    st.pyplot()
+     # Sélecteur de langue
+     langue_selectionnee = st.selectbox('Sélectionner une langue', df['Langue'].unique())
+
+     # Filtrer les données en fonction de la langue choisie
+     df_filtré = df[df['Langue'] == langue_selectionnee]
+     st.write(df_filtré)
 
     
