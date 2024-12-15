@@ -126,13 +126,20 @@ elif page == "Visualisations":
     ax.set_title('Carte de chaleur des corrélations')
     st.pyplot(fig)
 
-    # 4. Wordcloud for book titles or authors
-    st.subheader('Nuage de mots des titres de livres ou auteurs')
-    text = ' '.join(df['Titre'].dropna())  # Using 'Titre' (Title) for Wordcloud
-    wordcloud = WordCloud(width=800, height=400, background_color='white').generate(text)
-    st.image(wordcloud.to_array(), use_column_width=True)
+    # 4. Scatter plot between two numerical variables
+    st.subheader('Graphique en nuage de points entre deux variables numériques')
+    # Modify the two variables as per your dataset
+    fig, ax = plt.subplots()
+    ax.scatter(df['Ancienneté de publication'], df['Nombre de prêt total'], color='green')
+    ax.set_title('Ancienneté de publication vs Nombre de prêt total')
+    ax.set_xlabel('Ancienneté de publication')
+    ax.set_ylabel('Nombre de prêt total')
+    st.pyplot(fig)
 
-    # 5. Interactive plot with Plotly (optional)
-    st.subheader('Graphique interactif des prêts total par année')
-    fig = px.bar(df, x="Date", y="Nombre de prêt total", title="Prêts totaux par année", labels={"Date": "Année", "Nombre de prêt total": "Total des prêts"})
+    # 5. Line plot showing trends over time
+    st.subheader('Graphique en ligne des prêts totaux au fil du temps')
+    # Assuming "Date" is in datetime format and can be converted for plotting
+    df['Date'] = pd.to_datetime(df['Date'], errors='coerce')  # Ensure 'Date' is in datetime format
+    df_grouped = df.groupby(df['Date'].dt.year)['Nombre de prêt total'].sum().reset_index()
+    fig = px.line(df_grouped, x='Date', y='Nombre de prêt total', title='Tendances des prêts totaux au fil du temps', labels={"Date": "Année", "Nombre de prêt total": "Total des prêts"})
     st.plotly_chart(fig)
