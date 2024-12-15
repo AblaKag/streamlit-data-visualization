@@ -155,18 +155,20 @@ elif page == "Visualisations":
     st.plotly_chart(fig_document)
 
     ### Graph interactif 4
-    # Sélectionner la langue via un filtre interactif
-    langue_selectionnee = st.selectbox("Choisir une langue", df["Langue"].unique(), key="selectbox_langue")
+   # Sélectionner la langue via un filtre interactif
+   langue_selectionnee_scatter = st.selectbox("Choisir une langue", df["Langue"].unique(), key="selectbox_langue")
 
-    # Filtrer les données selon la langue choisie
-    df_filtré_localisation = df[df["Langue"] == langue_selectionnee]
+   # Filtrer les données selon la langue choisie
+   df_filtré_scatter = df[df["Langue"] == langue_selectionnee_scatter]
 
-    # Créer un histogramme pour le nombre de localisations
-    fig_localisations = px.histogram(df_filtré_localisation, 
-                                  x='Nombre de localisations', 
-                                  title=f"Nombre de localisations pour {langue_selectionnee}",
-                                  labels={'Nombre de localisations': 'Nombre de localisations'})
+   # Créer un scatter plot pour Nombre de prêt total vs Nombre de localisations
+   fig_scatter = px.scatter(df_filtré_scatter, 
+                         x="Nombre de prêt total", 
+                         y="Nombre de localisations", 
+                         title=f"Relation entre Nombre de prêt total et Nombre de localisations pour {langue_selectionnee_scatter}",
+                         labels={'Nombre de prêt total': 'Nombre de prêt total', 'Nombre de localisations': 'Nombre de localisations'})
 
-    # Afficher le graphique
-    st.plotly_chart(fig_localisations)
+   # Afficher le graphique
+   st.plotly_chart(fig_scatter)
+
 
