@@ -156,7 +156,7 @@ elif page == "Visualisations":
 
     ### Graph interactif 4
     # Sélectionner la langue via un filtre interactif
-    langue_selectionnee = st.selectbox("Choisir une langue", df["Langue"].unique())
+    langue_selectionnee = st.selectbox("Choisir une langue", df["Langue"].unique(), key="selectbox_langue")
 
     # Filtrer les données selon la langue choisie
     df_filtré_localisation = df[df["Langue"] == langue_selectionnee]
