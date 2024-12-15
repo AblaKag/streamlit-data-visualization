@@ -110,6 +110,7 @@ elif page == "Visualisations":
     max_value=int(df['Nombre de prêt total'].max()),
     value=(int(df['Nombre de prêt total'].min()), int(df['Nombre de prêt total'].max())))
 
+    ### Graph interactif 1
     # Filtrer les données selon la plage sélectionnée
     df_filtré = df[(df['Nombre de prêt total'] >= nombre_pret_min) & (df['Nombre de prêt total'] <= nombre_pret_max)]
     st.write(df_filtré)
@@ -123,6 +124,28 @@ elif page == "Visualisations":
     # Afficher le graphique dans Streamlit
     st.plotly_chart(fig)
 
+    ### Graph interactif 2
+    # Slider pour filtrer le nombre d'exemplaires
+    nombre_exemplaires_min, nombre_exemplaires_max = st.slider(
+    'Sélectionner une plage de nombre d\'exemplaires',
+    min_value=int(df['Nombre d\'exemplaires'].min()),
+    max_value=int(df['Nombre d\'exemplaires'].max()),
+    value=(int(df['Nombre d\'exemplaires'].min()), int(df['Nombre d\'exemplaires'].max())))
+
+    # Filtrer les données selon la plage sélectionnée
+    df_filtré_exemplaires = df[(df['Nombre d\'exemplaires'] >= nombre_exemplaires_min) & 
+                            (df['Nombre d\'exemplaires'] <= nombre_exemplaires_max)]
+
+    # Créer un graphique de type scatter pour voir la relation
+    fig_exemplaires = px.scatter(df_filtré_exemplaires, 
+                             x='Nombre de prêt total', 
+                             y='Nombre d\'exemplaires',
+                             title="Relation entre Nombre de prêts total et Nombre d'exemplaires")
+
+    # Afficher le graphique
+    st.plotly_chart(fig_exemplaires)
+
+    ### Graph interactif 1
     # Slider pour filtrer le nombre d'exemplaires
     nombre_exemplaires_min, nombre_exemplaires_max = st.slider(
     'Sélectionner une plage de nombre d\'exemplaires',
