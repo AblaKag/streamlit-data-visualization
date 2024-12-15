@@ -113,9 +113,12 @@ elif page == "Visualisations":
     # Filtrer les données selon la plage sélectionnée
     df_filtré = df[(df['Nombre de prêt total'] >= nombre_pret_min) & (df['Nombre de prêt total'] <= nombre_pret_max)]
     st.write(df_filtré)
-
+    
+    langue_selectionnee = st.selectbox("Choisir une langue", df["Langue"].unique())
+    df_filtré = df[df["Langue"] == langue_selectionnee]
+    
     # Créer un graphique avec Plotly
-    fig = px.bar(df_filtré, x="Année", y="Nombre de prêts", title=f"Nombre de prêts pour {langues_selectionnees}")
+    fig = px.bar(df_filtré, x="Date", y="Nombre de prêt total", title=f"Nombre de prêts pour {langue_selectionnee}")
 
     # Afficher le graphique dans Streamlit
     st.plotly_chart(fig)
