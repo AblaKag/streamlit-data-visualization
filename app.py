@@ -123,17 +123,22 @@ elif page == "Visualisations":
     # Afficher le graphique dans Streamlit
     st.plotly_chart(fig)
 
-    # Sélecteur interactif pour la langue
-    autheur_selectionne = st.selectbox("Choisir un autheur", df["Editeur"].unique())
+    # Slider pour filtrer le nombre d'exemplaires
+    nombre_exemplaires_min, nombre_exemplaires_max = st.slider(
+    'Sélectionner une plage de nombre d\'exemplaires',
+    min_value=int(df['Nombre d\'exemplaires'].min()),
+    max_value=int(df['Nombre d\'exemplaires'].max()),
+    value=(int(df['Nombre d\'exemplaires'].min()), int(df['Nombre d\'exemplaires'].max())))
 
-    # Filtrer les données
-    df_filtré2 = df[df["Editeur"] == autheur_selectionne]
+    # Filtrer les données selon la plage sélectionnée
+    df_filtré_exemplaires = df[(df['Nombre d\'exemplaires'] >= nombre_exemplaires_min) & 
+                            (df['Nombre d\'exemplaires'] <= nombre_exemplaires_max)]
 
-    # Créer un histogramme avec Seaborn
-    fig, ax = plt.subplots()
-    sns.barplot(data=df_filtré2, x="Date", y="Nombre de prêts", ax=ax)
-    ax.set_title(f"Histogramme pour {autheur_selectionne}")
+    # Créer un graphique de type scatter pour voir la relation
+    fig_exemplaires = px.scatter(df_filtré_exemplaires, 
+                             x='Nombre de prêt total', 
+                             y='Nombre d\'exemplaires',
+                             title="Relation entre Nombre de prêts total et Nombre d'exemplaires")
 
-    # Afficher le graphique dans Streamlit
-    st.pyplot(fig)
-
+    # Afficher le graphique
+    st.plotly_chart(fig_exemplaires)
