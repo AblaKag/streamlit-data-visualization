@@ -100,36 +100,4 @@ elif page == "Visualisations":
     plt.figure(figsize=(12,8))
     sns.scatterplot(x='Nombre de prêt total',y="Nombre d'exemplaires",data=df)
 
-    # 2. Bar chart for categorical variables using Matplotlib
-    st.subheader('Diagrammes en barres pour les variables catégorielles')
-    categorical_columns = df.select_dtypes(include=['object']).columns
-    for col in categorical_columns:
-        st.write(f"**{col}** Diagramme en barres:")
-        fig = plt.figure(figsize=(8, 4))
-        df[col].value_counts().plot(kind='bar', color='lightcoral')
-        plt.title(f'Diagramme en barres de {col}')
-        plt.xlabel(col)
-        plt.ylabel('Fréquence')
-        st.pyplot(fig)
-
-    # 3. Correlation Heatmap using Seaborn
-    st.subheader('Carte de chaleur des corrélations')
-    correlation_matrix = df[numerical_columns].corr()
-    fig, ax = plt.subplots(figsize=(10, 8))
-    sns.heatmap(correlation_matrix, annot=True, cmap='coolwarm', ax=ax, cbar=True)
-    ax.set_title('Carte de chaleur des corrélations')
-    st.pyplot(fig)
-
-    # 4. Bar chart for total loan count per year using Plotly
-    st.subheader('Graphique interactif des prêts totaux par année')
-    # Ensure the 'Date' column is in datetime format
-    df['Date'] = pd.to_datetime(df['Date'], errors='coerce')  # Convert to datetime if not already
-    df['Year'] = df['Date'].dt.year  # Extract year
-    fig = px.bar(df, x="Year", y="Nombre de prêt total", title="Prêts totaux par année", labels={"Year": "Année", "Nombre de prêt total": "Total des prêts"})
-    st.plotly_chart(fig)
-
-    # 5. Another Plotly Chart (Example: Total Loans by Book Title)
-    st.subheader('Graphique interactif des prêts totaux par titre de livre')
-    book_loans = df.groupby('Titre')['Nombre de prêt total'].sum().reset_index()
-    fig2 = px.bar(book_loans, x='Titre', y='Nombre de prêt total', title="Prêts totaux par titre de livre", labels={'Titre': 'Titre du livre', 'Nombre de prêt total': 'Total des prêts'})
-    st.plotly_chart(fig2)
+    
