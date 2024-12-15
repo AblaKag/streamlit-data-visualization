@@ -152,6 +152,9 @@ elif page == "Visualisations":
     # Filtrer les données
     df_filtré_document = df[df["Type de document"] == type_document_selectionne]
 
+    # Limiter le nombre de prêts total à un maximum de 1000
+    df_filtré_document = df_filtré_document[df_filtré_document['Nombre de prêt total'] <= 1000]
+
     # Créer un histogramme pour les prêts totaux par type de document
     fig_document = px.histogram(df_filtré_document, 
                              x='Nombre de prêt total', 
