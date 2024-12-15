@@ -124,10 +124,10 @@ elif page == "Visualisations":
     st.plotly_chart(fig)
 
     # Sélecteur interactif pour la langue
-    autheur_selectionne = st.selectbox("Choisir un autheur", df["Auteur Nom"].unique())
+    autheur_selectionne = st.selectbox("Choisir un autheur", df["Editeur"].unique())
 
     # Filtrer les données
-    df_filtré2 = df[df["Auteur Nom"] == autheur_selectionne]
+    df_filtré2 = df[df["Editeur"] == autheur_selectionne]
 
     # Créer un histogramme avec Seaborn
     fig, ax = plt.subplots()
