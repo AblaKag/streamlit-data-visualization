@@ -152,9 +152,6 @@ elif page == "Visualisations":
     # Filtrer les données
     df_filtré_document = df[df["Type de document"] == type_document_selectionne]
 
-    # Limiter le nombre de prêts total à un maximum de 1000
-    df_filtré_document = df_filtré_document[df_filtré_document['Nombre de prêt total'] <= 1000]
-
     # Créer un histogramme pour les prêts totaux par type de document
     fig_document = px.histogram(df_filtré_document, 
                              x='Nombre de prêt total', 
@@ -163,4 +160,15 @@ elif page == "Visualisations":
 
     # Afficher le graphique
     st.plotly_chart(fig_document)
+
+    ### Graph interactif 4
+    # Créer un graphique de type line pour l'évolution des prêts par ancienneté
+    fig_anciennete = px.line(df, 
+                         x='Ancienneté de publication', 
+                         y='Nombre de prêt total', 
+                         title="Evolution des prêts totaux par ancienneté de publication",
+                         labels={'Ancienneté de publication': 'Ancienneté (années)', 'Nombre de prêt total': 'Nombre moyen de prêts'})
+
+    # Afficher le graphique
+    st.plotly_chart(fig_anciennete)
 
