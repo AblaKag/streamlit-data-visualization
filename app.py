@@ -63,3 +63,23 @@ if page == "Description du jeu de données":
     st.subheader('Nombre de valeurs manquantes par variable')
     missing_values = df.isnull().sum()
     st.write(missing_values)
+
+elif page == "Statistiques descriptives":
+    # Page 2: Statistiques descriptives
+
+    st.header('2. Statistiques descriptives')
+
+    # Show summary statistics for numerical columns
+    st.subheader('Statistiques descriptives pour les variables numériques')
+    st.write(df.describe())
+
+    # Show value counts for categorical columns
+    st.subheader('Comptage des valeurs pour les variables catégorielles')
+    categorical_columns = df.select_dtypes(include=['object']).columns
+    for col in categorical_columns:
+        st.write(f"**{col}**:")
+        st.write(df[col].value_counts())
+
+    # Show missing values
+    st.subheader('Valeurs manquantes')
+    st.write(df.isnull().sum())
