@@ -17,7 +17,7 @@ st.title('Data Analysis App')
 
 # Sidebar for navigation
 st.sidebar.title("Navigation")
-page = st.sidebar.radio("Choose a page", ("Description du jeu de données", "Statistiques descriptives", "Visualisations"))
+page = st.sidebar.radio("Choose a page", ("Description du jeu de données", "Statistiques descriptives", "Visualisations", "Wordcloud"))
 
 if page == "Description du jeu de données":
     # Page 1: Description du jeu de données
