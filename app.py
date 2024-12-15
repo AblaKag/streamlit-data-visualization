@@ -124,15 +124,15 @@ elif page == "Visualisations":
     st.plotly_chart(fig)
 
     # Sélecteur interactif pour la langue
-    langue_selectionnee = st.selectbox("Choisir une langue", df["Langue"].unique())
+    autheur_selectionne = st.selectbox("Choisir un autheur", df["Auteur Nom"].unique())
 
     # Filtrer les données
-    df_filtré = df[df["Langue"] == langue_selectionnee]
+    df_filtré = df[df["Auteur Nom"] == autheur_selectionne]
 
     # Créer un histogramme avec Seaborn
     fig, ax = plt.subplots()
     sns.barplot(data=df_filtré, x="Date", y="Nombre de prêts", ax=ax)
-    ax.set_title(f"Histogramme pour {langue_selectionnee}")
+    ax.set_title(f"Histogramme pour {autheur_selectionne}")
 
     # Afficher le graphique dans Streamlit
     st.pyplot(fig)
