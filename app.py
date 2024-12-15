@@ -155,20 +155,20 @@ elif page == "Visualisations":
     st.plotly_chart(fig_document)
 
     ### Graph interactif 4
-   # Sélectionner la langue via un filtre interactif
-   langue_selectionnee_scatter = st.selectbox("Choisir une langue", df["Langue"].unique(), key="selectbox_langue")
+    # Sélectionner la langue via un filtre interactif
+    langue_selectionnee_scatter = st.selectbox("Choisir une langue", df["Langue"].unique(), key="selectbox_langue")
 
-   # Filtrer les données selon la langue choisie
-   df_filtré_scatter = df[df["Langue"] == langue_selectionnee_scatter]
+    # Filtrer les données selon la langue choisie
+    df_filtré_scatter = df[df["Langue"] == langue_selectionnee_scatter]
 
-   # Créer un scatter plot pour Nombre de prêt total vs Nombre de localisations
-   fig_scatter = px.scatter(df_filtré_scatter, 
+    # Créer un scatter plot pour Nombre de prêt total vs Nombre de localisations
+    fig_scatter = px.scatter(df_filtré_scatter, 
                          x="Nombre de prêt total", 
                          y="Nombre de localisations", 
                          title=f"Relation entre Nombre de prêt total et Nombre de localisations pour {langue_selectionnee_scatter}",
                          labels={'Nombre de prêt total': 'Nombre de prêt total', 'Nombre de localisations': 'Nombre de localisations'})
 
-   # Afficher le graphique
-   st.plotly_chart(fig_scatter)
+    # Afficher le graphique
+    st.plotly_chart(fig_scatter)
 
 
