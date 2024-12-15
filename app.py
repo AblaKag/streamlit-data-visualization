@@ -1,10 +1,11 @@
 import streamlit as st
 import pandas as pd
-import gzip
-import matplotlib.pyplot as plt
+import numpy as np
+import cufflinks as cf
 import seaborn as sns
-from wordcloud import WordCloud
 import plotly.express as px
+import gzip
+
 
 # Function to load a gzipped CSV file
 def load_data():
