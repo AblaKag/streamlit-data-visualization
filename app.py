@@ -96,13 +96,6 @@ elif page == "Visualisations":
 
     st.header('3. Visualisations')
 
-    # Multiselect pour plusieurs langues
-    langues_selectionnees = st.multiselect('Sélectionner les langues', df['Langue'].unique())
-
-    # Filtrer les données en fonction des langues sélectionnées
-    df_filtré = df[df['Langue'].isin(langues_selectionnees)]
-    st.write(df_filtré)
-
     # Slider pour filtrer les données selon le nombre de prêts total
     nombre_pret_min, nombre_pret_max = st.slider(
     'Sélectionner une plage de nombre de prêts',
