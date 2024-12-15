@@ -114,3 +114,9 @@ elif page == "Visualisations":
     df_filtré = df[(df['Nombre de prêt total'] >= nombre_pret_min) & (df['Nombre de prêt total'] <= nombre_pret_max)]
     st.write(df_filtré)
 
+    # Créer un graphique avec Plotly
+    fig = px.bar(df_filtré, x="Année", y="Nombre de prêts", title=f"Nombre de prêts pour {langue_selectionnee}")
+
+    # Afficher le graphique dans Streamlit
+    st.plotly_chart(fig)
+
