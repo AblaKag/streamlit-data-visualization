@@ -162,13 +162,19 @@ elif page == "Visualisations":
     st.plotly_chart(fig_document)
 
     ### Graph interactif 4
-    # Créer un graphique de type line pour l'évolution des prêts par ancienneté
-    fig_anciennete = px.line(df, 
-                         x='Ancienneté de publication', 
-                         y='Nombre de prêt total', 
-                         title="Evolution des prêts totaux par ancienneté de publication",
-                         labels={'Ancienneté de publication': 'Ancienneté (années)', 'Nombre de prêt total': 'Nombre moyen de prêts'})
+    # Sélectionner l'autheur via un filtre interactif
+    autheur_selectionne = st.selectbox("Choisir un autheur", df["Auteur Nom"].unique())
+
+    # Filtrer les données selon la langue choisie
+    df_filtré_localisation = df[df["Auteur Nom"] == autheur_selectionne]
+
+    # Créer un histogramme pour le nombre de localisations
+    fig_localisations = px.histogram(df_filtré_localisation, 
+                                  x='Nombre de localisations', 
+                                  title=f"Nombre de localisations pour {autheur_selectionne}",
+                                  labels={'Nombre de localisations': 'Nombre de localisations'})
 
     # Afficher le graphique
-    st.plotly_chart(fig_anciennete)
+    st.plotly_chart(fig_localisations)
+
 
