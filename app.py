@@ -101,7 +101,7 @@ elif page == "Visualisations":
 
     # Filtrer les données en fonction de la langue choisie
     df_filtré3 = df[df['Langue'] == langue_selectionnee]
-    st.write(df_filtré)
+    st.write(df_filtré3)
 
 
     # Slider pour filtrer les données selon le nombre de prêts total
