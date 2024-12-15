@@ -5,6 +5,7 @@ import cufflinks as cf
 import seaborn as sns
 import plotly.express as px
 import gzip
+import matplotlib.pyplot as plt
 
 
 # Function to load a gzipped CSV file
