@@ -96,7 +96,7 @@ elif page == "Visualisations":
 
     st.header('3. Visualisations')
 
-    # 1. Histogram for numerical variables using Matplotlib
+     # 1. Histogram for numerical variables using Matplotlib
     st.subheader('Histogramme des variables numériques')
     numerical_columns = df.select_dtypes(include=['float64', 'int64']).columns
     for col in numerical_columns:
@@ -141,4 +141,3 @@ elif page == "Visualisations":
     book_loans = df.groupby('Titre')['Nombre de prêt total'].sum().reset_index()
     fig2 = px.bar(book_loans, x='Titre', y='Nombre de prêt total', title="Prêts totaux par titre de livre", labels={'Titre': 'Titre du livre', 'Nombre de prêt total': 'Total des prêts'})
     st.plotly_chart(fig2)
-
