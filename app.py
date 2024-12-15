@@ -115,7 +115,7 @@ elif page == "Visualisations":
     st.write(df_filtré)
 
     # Créer un graphique avec Plotly
-    fig = px.bar(df_filtré, x="Année", y="Nombre de prêts", title=f"Nombre de prêts pour {langue_selectionnees}")
+    fig = px.bar(df_filtré, x="Année", y="Nombre de prêts", title=f"Nombre de prêts pour {langues_selectionnees}")
 
     # Afficher le graphique dans Streamlit
     st.plotly_chart(fig)
