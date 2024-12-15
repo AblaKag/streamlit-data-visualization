@@ -123,3 +123,23 @@ elif page == "Visualisations":
     # Afficher le graphique dans Streamlit
     st.plotly_chart(fig)
 
+    # Multiselect pour les langues
+    langues_selectionnees = st.multiselect("Sélectionner une ou plusieurs langues", df["Langue"].unique(), default=df["Langue"].unique())
+
+    # Slider pour la plage d'années
+    annee_min, annee_max = st.slider(
+    "Sélectionner une plage d'années",
+    min_value=int(df["Date"].min()),
+    max_value=int(df["Date"].max()),
+    value=(int(df["Date"].min()), int(df["Date"].max())))
+
+    # Filtrer les données
+    df_filtré = df[(df["Langue"].isin(langues_selectionnees)) & (df["Date"] >= annee_min) & (df["Date"] <= annee_max)]
+
+    # Créer un graphique avec Plotly
+    fig = px.line(df_filtré, x="Date", y="Nombre de prêts total", color="Langue", title="Évolution des prêts par langue")
+
+    # Afficher le graphique dans Streamlit
+    st.plotly_chart(fig)
+
+
