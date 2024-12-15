@@ -90,3 +90,54 @@ elif page == "Statistiques descriptives":
     st.subheader('Valeurs manquantes')
     st.write(df.isnull().sum())
 
+elif page == "Visualisations":
+    # Page 3: Visualisations
+
+    st.header('3. Visualisations')
+
+    # 1. Histogram for numerical variables using Matplotlib
+    st.subheader('Histogramme des variables numériques')
+    numerical_columns = df.select_dtypes(include=['float64', 'int64']).columns
+    for col in numerical_columns:
+        st.write(f"**{col}** Histogramme:")
+        fig, ax = plt.subplots()
+        ax.hist(df[col].dropna(), bins=30, color='skyblue', edgecolor='black')
+        ax.set_title(f'Histogramme de {col}')
+        ax.set_xlabel(col)
+        ax.set_ylabel('Fréquence')
+        st.pyplot(fig)
+
+    # 2. Bar chart for categorical variables using Matplotlib
+    st.subheader('Diagrammes en barres pour les variables catégorielles')
+    categorical_columns = df.select_dtypes(include=['object']).columns
+    for col in categorical_columns:
+        st.write(f"**{col}** Diagramme en barres:")
+        fig = plt.figure(figsize=(8, 4))
+        df[col].value_counts().plot(kind='bar', color='lightcoral')
+        plt.title(f'Diagramme en barres de {col}')
+        plt.xlabel(col)
+        plt.ylabel('Fréquence')
+        st.pyplot(fig)
+
+    # 3. Correlation Heatmap using Seaborn
+    st.subheader('Carte de chaleur des corrélations')
+    correlation_matrix = df[numerical_columns].corr()
+    fig, ax = plt.subplots(figsize=(10, 8))
+    sns.heatmap(correlation_matrix, annot=True, cmap='coolwarm', ax=ax, cbar=True)
+    ax.set_title('Carte de chaleur des corrélations')
+    st.pyplot(fig)
+
+    # 4. Bar chart for total loan count per year using Plotly
+    st.subheader('Graphique interactif des prêts totaux par année')
+    # Ensure the 'Date' column is in datetime format
+    df['Date'] = pd.to_datetime(df['Date'], errors='coerce')  # Convert to datetime if not already
+    df['Year'] = df['Date'].dt.year  # Extract year
+    fig = px.bar(df, x="Year", y="Nombre de prêt total", title="Prêts totaux par année", labels={"Year": "Année", "Nombre de prêt total": "Total des prêts"})
+    st.plotly_chart(fig)
+
+    # 5. Another Plotly Chart (Example: Total Loans by Book Title)
+    st.subheader('Graphique interactif des prêts totaux par titre de livre')
+    book_loans = df.groupby('Titre')['Nombre de prêt total'].sum().reset_index()
+    fig2 = px.bar(book_loans, x='Titre', y='Nombre de prêt total', title="Prêts totaux par titre de livre", labels={'Titre': 'Titre du livre', 'Nombre de prêt total': 'Total des prêts'})
+    st.plotly_chart(fig2)
+
