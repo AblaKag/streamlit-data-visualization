@@ -127,11 +127,11 @@ elif page == "Visualisations":
     autheur_selectionne = st.selectbox("Choisir un autheur", df["Auteur Nom"].unique())
 
     # Filtrer les données
-    df_filtré = df[df["Auteur Nom"] == autheur_selectionne]
+    df_filtré2 = df[df["Auteur Nom"] == autheur_selectionne]
 
     # Créer un histogramme avec Seaborn
     fig, ax = plt.subplots()
-    sns.barplot(data=df_filtré, x="Date", y="Nombre de prêts", ax=ax)
+    sns.barplot(data=df_filtré2, x="Date", y="Nombre de prêts", ax=ax)
     ax.set_title(f"Histogramme pour {autheur_selectionne}")
 
     # Afficher le graphique dans Streamlit
